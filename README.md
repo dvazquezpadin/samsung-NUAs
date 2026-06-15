@@ -61,6 +61,7 @@ Together, these resources facilitate the **reproduction of our experiments**, **
 │   ├── 05.svg
 │   ├── 06.svg
 │   ├── 06_dagger.svg
+│   ├── quiver_plot.png
 │   ├── Samsung_NUA_patterns_timeline.svg
 ├── LICENSE
 ├── README.md
@@ -79,8 +80,8 @@ You can download individual patterns from the table below, or download the entir
 
 | Pattern                                                      | Resolution | Device  | Source Images                                                                     | Link                                 |
 |--------------------------------------------------------------|------------|---------|-----------------------------------------------------------------------------------|--------------------------------------|
-| <img src="figs/01.svg" width="50%" alt="01">                 | 3024x4032  | S10     | [ZIP](https://ggl.link/m1KPaEq)                                                   | [Download](https://ggl.link/UNpscLk) |
-| <img src="figs/02.svg" width="50%" alt="02">                 | 3000x4000  | vivoX60 | [D095 - Du *et al.*](https://doi.org/10.1109/ICASSP49660.2025.10890764)           | [Download](https://ggl.link/pRjB8h2) |
+| <img src="figs/01.svg" width="50%" alt="01">                 | 3024x4032  | S10     | [D44 - Baracchi *et al.*, 2023](https://doi.org/10.1109/ACCESS.2023.3321991)                         | [Download](https://ggl.link/UNpscLk) |
+| <img src="figs/02.svg" width="50%" alt="02">                 | 3000x4000  | vivoX60 | [D095 - Du *et al.*, 2025](https://doi.org/10.1109/ICASSP49660.2025.10890764)     | [Download](https://ggl.link/pRjB8h2) |
 | <img src="figs/03.svg" width="50%" alt="03">                 | 3000x4000  | A33 5G  | [A33 5G review](https://www.gsmarena.com/samsung_galaxy_a33_5g-review-2424p5.php) | Not publicly redistributable         |
 | <img src="figs/04.svg" width="50%" alt="04">                 | 3468x4624  | A53 5G  | Flickr references                                                                 | Not publicly redistributable         |
 | <img src="figs/05.svg" width="50%" alt="05">                 | 3060x4080  | A25     | [A25 review](https://www.gsmarena.com/samsung_galaxy_a25-review-2661p5.php)       | Not publicly redistributable         |
@@ -187,7 +188,7 @@ import os
 from src.SamsungNUAs_utils import recover_prnu_svd, HDR_aware_PRNU_verification
 
 # ---- Parameters PRNU Recovery ----
-fingerprint_path   = '/home/david/CloudStation/Samsung_github/NUA_patterns/01_pattern_S10.mat'
+fingerprint_path   = '/path/to/01_pattern_S10.mat'
 block_shape        = (65, 60)
 r                  = 9
 b_save             = True
@@ -205,7 +206,7 @@ PRNU = recover_prnu_svd(
 )
 
 # ---- Parameters HDR-aware framework ----
-testImage_path   = '/home/david/Pictures/Samsung/sm-g973f/4032x3024/D44/test/D44_L1S6C2.jpg'
+testImage_path   = '/path/to/D44_L1S6C2.jpg'
 blockSize_HDR    = 256
 b_plot_shifts    = True
 
@@ -223,7 +224,7 @@ Expected Output:
 [info]: Saved recovered PRNU fingerprint to /tmp/01_pattern_S10_SVD_9.mat
 [info]: PCE w/o HDR synchronization 12.47663610726296 vs. PCE w/ HDR synchronization 3992.03013708823 (reference: 01_pattern_S10_SVD_9).
 ```
-<img src="figs/quiver_plot.png" width="75%" alt="Quiver plot">
+<img src="figs/quiver_plot.png" width="100%" alt="Quiver plot">
 
 ---
 
