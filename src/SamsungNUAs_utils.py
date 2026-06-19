@@ -1,3 +1,16 @@
+# Copyright 2026 David Vázquez-Padín
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """
 SamsungNUAs_utils.py
 --------------------
@@ -789,7 +802,7 @@ def HDR_aware_PRNU_verification(
 
 def main():
     # ---- Parameters PRNU Recovery ----
-    fingerprint_path   = '/home/david/CloudStation/Samsung_github/NUA_patterns/01_pattern_S10.mat'
+    fingerprint_path   = '/path/to/01_pattern_S10.mat'
     block_shape        = (65, 60)
     r                  = 9
     b_save             = True
@@ -807,7 +820,7 @@ def main():
     )
 
     # ---- Parameters HDR-aware framework ----
-    testImage_path   = '/home/david/Pictures/Samsung/sm-g973f/4032x3024/D44/test/D44_L1S6C2.jpg'
+    testImage_path   = '/path/to/D44_L1S6C2.jpg'
     blockSize_HDR    = 256
     b_plot_shifts    = True
 
