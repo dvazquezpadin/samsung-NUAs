@@ -50,7 +50,7 @@ def recover_prnu_svd(
 
     Returns
     -------
-    PRNU: np.ndarray  Recovered PRNU fingerprint (same shape as input).
+    PRNU: np.ndarray Recovered PRNU fingerprint (same shape as input).
     """
 
     # ---- Load fingerprint ----
@@ -826,7 +826,7 @@ def main():
 
     HDR_aware_PRNU_verification(
         fingerprint_path   = fingerprint_path,
-        PRNU_path          = os.path.join(save_dir,'01_pattern_S10_SVD_9.mat'),
+        PRNU_path          = os.path.join(save_dir,'01_pattern_S10_SVD_' + str(r) + '.mat'),
         image_path         = testImage_path,
         block_size         = blockSize_HDR,
         plot_shifts        = b_plot_shifts

@@ -7,7 +7,9 @@ Official repository for the paper:
 > D. Vázquez-Padín and F. Pérez-González, "Beyond Non-Unique Artifacts: SVD-Based PRNU Recovery for Samsung Device Identification," in ACM Workshop on Information Hiding and Multimedia Security (IH&MMSec '26), June 17–19, 2026, Firenze, Italy. ACM, New York, NY, USA,
 12 pages. https://doi.org/10.1145/3785353.3815090
 
-[Paper available at: <add hyperlink when available>]: #  
+Paper available at:
+
+https://dl.acm.org/doi/10.1145/3785353.3815090  
 
 
 [![Paper PDF](https://img.shields.io/badge/Paper-PDF-blue?style=for-the-badge)](https://gpsc.uvigo.es/wp-content/uploads/2026/06/ihmmsec26_dvazquez_fperez.pdf)
@@ -78,15 +80,15 @@ The following **NUA patterns** were extracted from Samsung devices as described 
 
 You can download individual patterns from the table below, or download the entire collection (including source images) as a ZIP archive [here](https://ggl.link/Sl7fNQJ).
 
-| Pattern                                                      | Resolution | Device  | Source Images                                                                     | Link                                 |
-|--------------------------------------------------------------|------------|---------|-----------------------------------------------------------------------------------|--------------------------------------|
-| <img src="figs/01.svg" width="50%" alt="01">                 | 3024x4032  | S10     | [D44 - Baracchi *et al.*, 2023](https://doi.org/10.1109/ACCESS.2023.3321991)                         | [Download](https://ggl.link/UNpscLk) |
-| <img src="figs/02.svg" width="50%" alt="02">                 | 3000x4000  | vivoX60 | [D095 - Du *et al.*, 2025](https://doi.org/10.1109/ICASSP49660.2025.10890764)     | [Download](https://ggl.link/pRjB8h2) |
-| <img src="figs/03.svg" width="50%" alt="03">                 | 3000x4000  | A33 5G  | [A33 5G review](https://www.gsmarena.com/samsung_galaxy_a33_5g-review-2424p5.php) | Not publicly redistributable         |
-| <img src="figs/04.svg" width="50%" alt="04">                 | 3468x4624  | A53 5G  | Flickr references                                                                 | Not publicly redistributable         |
-| <img src="figs/05.svg" width="50%" alt="05">                 | 3060x4080  | A25     | [A25 review](https://www.gsmarena.com/samsung_galaxy_a25-review-2661p5.php)       | Not publicly redistributable         |
-| <img src="figs/06.svg" width="50%" alt="06">                 | 3060x4080  | A54     | [ZIP](https://ggl.link/zfC5ioV)                                                   | [Download](https://ggl.link/oNB9dV1) |
-| <img src="figs/06_dagger.svg" width="50%" alt="06 (dagger)"> | 3000x4000  | A56     | [ZIP](https://ggl.link/1h3DsFm)                                                   | [Download](https://ggl.link/owOItL2) |
+|                           Pattern                            |  Resolution  |  Device   | Source Images                                                                     | Link                                 |
+|:------------------------------------------------------------:|:------------:|:---------:|-----------------------------------------------------------------------------------|--------------------------------------|
+|         <img src="figs/01.svg" width="50%" alt="01">         |  3024x4032   |    S10    | [D44 - Baracchi *et al.*, 2023](https://doi.org/10.1109/ACCESS.2023.3321991)      | [Download](https://ggl.link/UNpscLk) |
+|         <img src="figs/02.svg" width="50%" alt="02">         |  3000x4000   |  vivoX60  | [D095 - Du *et al.*, 2025](https://doi.org/10.1109/ICASSP49660.2025.10890764)     | [Download](https://ggl.link/pRjB8h2) |
+|         <img src="figs/03.svg" width="50%" alt="03">         |  3000x4000   |  A33 5G   | [A33 5G review](https://www.gsmarena.com/samsung_galaxy_a33_5g-review-2424p5.php) | Not publicly redistributable         |
+|         <img src="figs/04.svg" width="50%" alt="04">         |  3468x4624   |  A53 5G   | Flickr references                                                                 | Not publicly redistributable         |
+|         <img src="figs/05.svg" width="50%" alt="05">         |  3060x4080   |    A25    | [A25 review](https://www.gsmarena.com/samsung_galaxy_a25-review-2661p5.php)       | Not publicly redistributable         |
+|         <img src="figs/06.svg" width="50%" alt="06">         |  3060x4080   |    A54    | [ZIP](https://ggl.link/zfC5ioV)                                                   | [Download](https://ggl.link/oNB9dV1) |
+| <img src="figs/06_dagger.svg" width="50%" alt="06 (dagger)"> |  3000x4000   |    A56    | [ZIP](https://ggl.link/1h3DsFm)                                                   | [Download](https://ggl.link/owOItL2) |
 
 **Notes:** 
 
