@@ -7,8 +7,7 @@ Official repository for the paper:
 > D. Vázquez-Padín and F. Pérez-González, "Beyond Non-Unique Artifacts: SVD-Based PRNU Recovery for Samsung Device Identification," in ACM Workshop on Information Hiding and Multimedia Security (IH&MMSec '26), June 17–19, 2026, Firenze, Italy. ACM, New York, NY, USA,
 12 pages. https://doi.org/10.1145/3785353.3815090
 
-Paper available at:
-
+Paper available at:  
 https://dl.acm.org/doi/10.1145/3785353.3815090  
 
 
@@ -20,12 +19,21 @@ https://dl.acm.org/doi/10.1145/3785353.3815090
 If you use this repository in your research, please cite:
 
 ```
-@ARTICLE{SAMSUNG_NUAS_2026,
-  author={Vázquez-Padín, David and Pérez-González, Fernando},
-  journal={ACM Workshop on Information Hiding and Multimedia Security (IH&MMSec '26)}, 
-  title={Beyond Non-Unique Artifacts: SVD-Based PRNU Recovery for Samsung Device Identification}, 
-  year={2026},
-  doi={10.1145/3785353.3815090}}
+@inproceedings{SAMSUNG_NUAS_2026,
+  author = {V\'{a}zquez-Pad\'{\i}n, David and P\'{e}rez-Gonz\'{a}lez, Fernando},
+  title = {Beyond Non-Unique Artifacts: SVD-Based PRNU Recovery for Samsung Device Identification},
+  year = {2026},
+  isbn = {9798400723766},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/3785353.3815090},
+  doi = {10.1145/3785353.3815090},
+  booktitle = {Proceedings of the 2026 ACM Workshop on Information Hiding and Multimedia Security},
+  pages = {52–63},
+  numpages = {12},
+  location = {Firenze, Italy},
+  series = {IH&MMSec '26}
+}
 ```
 ---
 
@@ -184,7 +192,7 @@ Expected Output:
 This module demonstrates how to integrate the SVD-based PRNU recovery algorithm with the HDR-aware framework for PRNU-based source camera verification.
 
 Example usage:
-> **Note:** To ensure this example runs out of the box, we include a custom Python implementation of the wavelet-based denoising filter. You may observe minor numerical differences compared to the figures reported in the original paper; recall that the paper's experiments were conducted using a modified version of the Python port of the [Camera Fingerprint Program](https://dde.binghamton.edu/download/camera_fingerprint/).  
+> **Note:** To ensure this example runs out of the box, we include a custom Python implementation of the wavelet-based denoising filter. You may observe minor numerical differences compared to the figures reported in the original paper; recall that the paper's experiments were conducted using the Python port of the [Camera Fingerprint Program](https://dde.binghamton.edu/download/camera_fingerprint/).  
 ```python
 import os
 from src.SamsungNUAs_utils import recover_prnu_svd, HDR_aware_PRNU_verification
@@ -214,7 +222,7 @@ b_plot_shifts    = True
 
 HDR_aware_PRNU_verification(
     fingerprint_path   = fingerprint_path,
-    PRNU_path          = os.path.join(save_dir,'01_pattern_S10_SVD_9.mat'),
+    PRNU_path          = os.path.join(save_dir,'01_pattern_S10_SVD_' + str(r) + '.mat'),
     image_path         = testImage_path,
     block_size         = blockSize_HDR,
     plot_shifts        = b_plot_shifts
@@ -224,7 +232,7 @@ HDR_aware_PRNU_verification(
 Expected Output:
 ```text
 [info]: Saved recovered PRNU fingerprint to /tmp/01_pattern_S10_SVD_9.mat
-[info]: PCE w/o HDR synchronization 12.47663610726296 vs. PCE w/ HDR synchronization 3992.03013708823 (reference: 01_pattern_S10_SVD_9).
+[info]: PCE w/o HDR synchronization 12.477 vs. PCE w/ HDR synchronization 3992.030 (reference: 01_pattern_S10_SVD_9).
 ```
 <img src="figs/quiver_plot.png" width="100%" alt="Quiver plot">
 

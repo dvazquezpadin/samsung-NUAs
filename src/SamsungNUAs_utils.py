@@ -12,12 +12,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """
-SamsungNUAs_utils.py
---------------------
-Utility functions for Samsung PRNU (Photo Response Non-Uniformity) fingerprint
-cleaning via block-wise SVD suppression.
-"""
+====================================================================
+Samsung Non-Unique Artifacts (Samsung NUAs Utils)
+====================================================================
 
+Author:
+    David Vázquez-Padín
+    atlanTTic, Universidade de Vigo
+
+Contact:
+    dvazquez@gts.uvigo.es
+
+Description:
+    Utility functions for removing the Non-Unique Artifacts (NUAs)
+    present in default Samsung PRNU (Photo Response Non-Uniformity)
+    patterns using block-wise SVD suppression, as described in the
+    paper:
+
+    D. Vázquez-Padín and F. Pérez-González, "Beyond Non-Unique
+    Artifacts: SVD-Based PRNU Recovery for Samsung Device
+    Identification," in ACM Workshop on Information Hiding and
+    Multimedia Security (IH&MMSec '26), June 17–19, 2026, Firenze,
+    Italy. ACM, New York, NY, USA, 12 pages.
+    https://doi.org/10.1145/3785353.3815090
+
+====================================================================
+"""
 import os
 import numpy as np
 import scipy.io as sio
@@ -25,6 +45,8 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import pywt
 from scipy.ndimage import uniform_filter
+from skimage.util import view_as_blocks
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 def recover_prnu_svd(
     fingerprint_path: str,
@@ -178,6 +200,38 @@ def plot_autocorrelation(fingerprint_path, min_val):
 
     # Render the figure
     plt.show()
+
+def block_corrcoef(arr, block_size=(21, 21)):
+
+    # Extract image dimensions and number of channels
+    h, w, _ = arr.shape
+
+    # Block height and width
+    bh, bw = block_size
+
+    # Block height and width
+    H, W = h // bh, w // bw
+
+    # Split image into non-overlapping blocks
+    # Each block contains 2 channels (pattern and reference)
+    blocks = np.squeeze(view_as_blocks(arr, block_shape=(bh, bw, 2)))  # shape: (H, W, bh, bw, 2)
+
+    # Initialize correlation map
+    cc = np.zeros((H, W), dtype=float)
+
+    # Loop over blocks
+    for i in range(H):
+        for j in range(W):
+            block = blocks[i, j, :, :, :]  # shape (bh, bw, 2)
+            ch1 = block[:, :, 0].ravel()
+            ch2 = block[:, :, 1].ravel()
+
+            # Compute Pearson correlation coefficient
+            r = np.corrcoef(ch1, ch2)[0, 1]
+
+            cc[i, j] = r
+
+    return cc
 
 
 def denoise(image_path):
@@ -587,10 +641,11 @@ def process_array_in_blocks(arr, Ix, pattern, PRNU, block_size):
     return PRNU_rec, shifts
 
 
-def plot_block_shifts(image_path, shifts, block_size, arrow_length=None):
+def plot_block_shifts(image_path, W, pattern, shifts, block_size, arrow_length=None):
     """
     Visualize per-block estimated shifts as a quiver plot overlaid on the
-    full-color query image.
+    full-color query image and the local NCC map between its residue and
+    the default fingerprint (containing NUAs).
 
     For each block:
       - If a shift was detected (PCE >= 30), a red arrow is drawn from the
@@ -611,6 +666,12 @@ def plot_block_shifts(image_path, shifts, block_size, arrow_length=None):
     image_path : str
         Path to the query image file. The image is loaded in full color
         (RGB) and used as the background.
+    W : np.ndarray
+        2D noise residual of the query image (e.g. from wavelet
+        denoising).
+    pattern : np.ndarray
+        2D reference camera fingerprint used to estimate local shifts,
+        same shape as `W`.
     shifts : dict
         Mapping from block top-left corner (i, j) to the estimated
         (row, col) shift `np.ndarray`, or `None` for blocks with no
@@ -638,10 +699,26 @@ def plot_block_shifts(image_path, shifts, block_size, arrow_length=None):
     if arrow_length is None:
         arrow_length = N * 0.6
 
-    fig, ax = plt.subplots(figsize=(10, 10 * h / w))
+    # Compute and smooth local NCC map
+    cc = block_corrcoef(np.stack((W, pattern), axis=-1))
+    cc[np.isnan(cc)] = 0
+    NCCmap = uniform_filter(cc, size=5, mode='reflect')
+
+    # Choose figure size preserving aspect ratio
+    max_dim = 10
+    if w > h:
+        # Horizontal
+        figsize = (max_dim, max_dim * (h / w))
+    else:
+        # Vertical
+        figsize = (max_dim * (w / h), max_dim)
+    fig, ax = plt.subplots(figsize=figsize)
 
     # Full-color background image.
     ax.imshow(image)
+
+    # Overlay NCC map
+    im = ax.imshow(NCCmap, alpha=0.7, extent=(0, w, h, 0))
 
     # Draw a grid with spacing `block_size` to indicate block boundaries.
     for x in range(0, w + 1, N):
@@ -702,9 +779,15 @@ def plot_block_shifts(image_path, shifts, block_size, arrow_length=None):
     ax.set_xlim(0, w)
     ax.set_ylim(h, 0)  # keep image (row 0 at top) orientation
     ax.set_title('Per-block estimated translation parameters $(t_1, t_2)$')
+
+    # Add colorbar
+    divider = make_axes_locatable(ax)
+    cax = divider.append_axes("right", size="3%", pad=0.2)
+    plt.colorbar(im, cax=cax, label='NCC')
     ax.set_axis_off()
 
     fig.tight_layout()
+    fig.savefig("/tmp/quiver_plot.png", dpi=150, format="png", bbox_inches="tight")
     plt.show()
 
     return fig, ax
@@ -790,12 +873,12 @@ def HDR_aware_PRNU_verification(
     pce_after = pce_own(W, np.multiply(Ix, PRNU_rec))
 
     # Print information
-    print(f'[info]: PCE w/o HDR synchronization {pce_before} vs. PCE w/ HDR synchronization {pce_after} (reference: {PRNU_ref}).')
+    print(f'[info]: PCE w/o HDR synchronization {pce_before:.3f} vs. PCE w/ HDR synchronization {pce_after:.3f} (reference: {PRNU_ref}).')
 
     # Optionally visualize the estimated per-block shifts over the
     # full-color image.
     if plot_shifts:
-        plot_block_shifts(image_path, shifts, block_size)
+        plot_block_shifts(image_path, W, pattern, shifts, block_size)
 
     return pce_before, pce_after, shifts
 
