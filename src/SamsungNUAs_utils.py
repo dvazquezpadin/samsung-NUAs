@@ -787,7 +787,6 @@ def plot_block_shifts(image_path, W, pattern, shifts, block_size, arrow_length=N
     ax.set_axis_off()
 
     fig.tight_layout()
-    fig.savefig("/tmp/quiver_plot.png", dpi=150, format="png", bbox_inches="tight")
     plt.show()
 
     return fig, ax
