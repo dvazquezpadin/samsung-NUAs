@@ -13,6 +13,7 @@ https://dl.acm.org/doi/10.1145/3785353.3815090
 
 [![Paper PDF](https://img.shields.io/badge/Paper-PDF-blue?style=for-the-badge)](https://gpsc.uvigo.es/wp-content/uploads/2026/06/ihmmsec26_dvazquez_fperez.pdf)
 [![NUA Patterns](https://img.shields.io/badge/Samsung%20NUA%20Patterns-ZIP-green?style=for-the-badge)](https://ggl.link/Sl7fNQJ)
+[![Samsung Image Dataset](https://img.shields.io/badge/Samsung%20Image%20Dataset-ZIP-orange?style=for-the-badge)](https://ggl.link/zkg2SDR)
 
 ### Citation
 
